@@ -84,7 +84,7 @@
     "getApplication": "For a better experience, download the mobile app!",
     "getApplicationTitle": "Mobile App",
     "incorrect_code": "The code you entered is incorrect, please try again.",
-    "incorrectRegistrationNumber": "Wrong registration number",
+    "incorrectRegistrationNumber": "Wrong Lastname or Registration Number",
     "password": "Code received by SMS",
     "phone": "Enter your phone number",
     "phone_not_found": "Phone number not found",

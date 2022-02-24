@@ -84,7 +84,7 @@
     "getApplication": "Pour une expérience plus complète, téléchargez l'application sur votre téléphone !",
     "getApplicationTitle": "Application mobile",
     "incorrect_code": "Le code renseigné est incorrect, merci de réessayer.",
-    "incorrectRegistrationNumber": "Numéro d'inscription incorrect",
+    "incorrectRegistrationNumber": "Nom de famille ou Numéro d'inscription incorrect",
     "password": "Code reçu par SMS",
     "phone": "Saisissez votre numéro de téléphone",
     "phone_not_found": "Ce numéro de téléphone nous est inconnu. Merci de vérifier la saisie.",
