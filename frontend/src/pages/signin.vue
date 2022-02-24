@@ -9,7 +9,12 @@
             {{ $t("login.title") }}
           </v-card-title>
 
-          <v-form @submit.prevent="submit" ref="form" v-model="valid">
+          <v-form 
+            v-show="phoneNumberIdentification"
+            @submit.prevent="submitPhoneNumberLogin" 
+            ref="phoneNumberForm" 
+            v-model="valid"
+          >
             <v-card-text class="px-6 py-1">
               <vue-tel-input-vuetify
                 defaultCountry="fr"
@@ -48,7 +53,52 @@
               >
             </v-card-actions>
           </v-form>
+
+          <v-form 
+            v-show="lastNameIdentification"
+            @submit.prevent="submitLastNameLogin" 
+            ref="lastNameForm" 
+            v-model="valid"
+          >
+            <v-card-text class="px-6 py-1">
+              <v-text-field
+                class="prepend-icon-wide"
+                prepend-icon="mdi-account"
+                :label="$t('login.lastname')"
+                v-model="lastName"
+                required
+                :rules="[$v.required()]"
+              ></v-text-field>
+              <v-text-field
+                class="prepend-icon-wide"
+                prepend-icon="mdi-key"
+                :label="$t('login.registrationNumber')"
+                v-model="registrationNumber"
+                required
+                :rules="[$v.required()]"
+                type="number"
+              ></v-text-field>
+            </v-card-text>
+
+            <v-card-actions class="justify-center">              
+              <v-btn                
+                type="submit"
+                :disabled="registrationNumber == '' || lastName == ''"
+                color="secondary"
+                >{{ $t("login.submit") }}</v-btn
+              >
+            </v-card-actions>
+          </v-form>
         </v-card>
+
+        
+      </v-col>
+      <v-col cols="12" sm="8" md="6" lg="5" xl="4">
+        <v-btn class="my-4 mx-auto"       
+          @click="switchSignInMethod"                      
+          color="light"
+          >{{ $t("login.switchLoginMethod") }}
+        </v-btn>
       </v-col>
     </v-row>
   </div>
@@ -64,6 +114,10 @@ export default {
     phoneValid: true,
     phone: "",
     code: "",
+    lastName: "",
+    registrationNumber: "",
+    phoneNumberIdentification: true,
+    lastNameIdentification: false,
   }),
   methods: {
     onInput(formattedNumber, { number, valid, country }) {
@@ -71,12 +125,27 @@ export default {
       this.phoneValid = valid;
       this.country = country && country.name;
     },
-    async submit() {
+    async submitPhoneNumberLogin() {
       if (this.phoneNumberExists) {
         this.loginWithCode();
       } else {
         this.requestCode();
       }
+    },
+    async submitLastNameLogin() {
+      const auth = await axios.post("/api/auth/loginWithLastName", {
+        lastname: this.lastName,
+        registrationNumber: this.registrationNumber,
+      });
+
+      if (!auth) {
+        this.$store.commit("ERROR", this.$t("login.incorrectRegistrationNumber"));
+        return;
+      }
+
+      await this.$store.dispatch("AUTHENTICATE", auth);
+
+      this.$router.push("/").catch(() => {});
     },
     async requestCode() {
       const auth = await axios.post("/api/auth/sendCode", {
@@ -102,6 +171,10 @@ export default {
       await this.$store.dispatch("AUTHENTICATE", auth);
 
       this.$router.push("/").catch(() => {});
+    },
+    switchSignInMethod() {
+      this.phoneNumberIdentification = !this.phoneNumberIdentification;
+      this.lastNameIdentification = !this.lastNameIdentification;
     },
   },
 };

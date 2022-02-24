@@ -59,6 +59,25 @@ router.post("/loginWithCode", async (req, res) => {
   return res.json(false);
 });
 
+router.post("/loginWithLastName", async (req, res) => {
+  let user = await User.findOne({
+    where: {
+      last_name: req.body.lastname,
+      registration_number: req.body.registrationNumber,
+    },
+    include: [
+      {
+        model: Event,
+      },
+    ],
+  });
+
+  if (user) {
+    return res.json(getToken(user));
+  }
+  return res.json(false);
+});
+
 router.get("/me", async (req, res) => {
   if (!req.user || !req.user.id) {
     return res.json(null);

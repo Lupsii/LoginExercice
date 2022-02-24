@@ -96,7 +96,10 @@
     "signinRegistration": "or login with registration number",
     "submit": "Login",
     "title": "Access your participant space",
-    "username": "Email"
+    "username": "Email",
+    "code": "SMS code",
+    "lastname": "Lastname",
+    "switchLoginMethod": "Change connection method"
   },
   "notFound": {
     "backHome": "Get back home",

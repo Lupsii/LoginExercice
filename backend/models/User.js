@@ -25,6 +25,10 @@ User.init(
       type: DataTypes.DATE,
       allowNull: true,
     },
+    registration_number: {
+      type: DataTypes.STRING(30),
+      allowNull: true,
+    },
   },
   {
     sequelize: database,

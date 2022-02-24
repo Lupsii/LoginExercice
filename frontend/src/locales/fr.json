@@ -96,7 +96,10 @@
     "signinRegistration": "ou connectez vous avec votre numéro d'inscription",
     "submit": "Se connecter",
     "title": "Accédez à votre espace participant",
-    "username": "E-mail"
+    "username": "E-mail",
+    "code": "Code SMS",
+    "lastname": "Nom de famille",
+    "switchLoginMethod": "Changer de moyen de connexion"
   },
   "notFound": {
     "backHome": "Retourner à l'accueil",
