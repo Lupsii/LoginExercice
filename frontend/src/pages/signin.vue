@@ -93,8 +93,11 @@
 
         
       </v-col>
+      
+    </v-row>
+    <v-row justify="center" dense>
       <v-col cols="12" sm="8" md="6" lg="5" xl="4">
-        <v-btn class="my-4 mx-auto"       
+        <v-btn class="my-4 mx-auto float-right"       
           @click="switchSignInMethod"                      
           color="light"
           >{{ $t("login.switchLoginMethod") }}
